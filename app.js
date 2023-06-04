@@ -25,7 +25,8 @@ io.on('connection', (socket) => {
     x: 100,
     y: 100
   }
-  
+
+  io.emit('updatePlayers', players)
 });
 
 server.listen(port, () => {
