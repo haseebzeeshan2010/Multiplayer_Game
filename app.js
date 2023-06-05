@@ -5,7 +5,7 @@ const app = express()
 const http = require('http');
 const server = http.createServer(app);
 const { Server } = require("socket.io");
-const io = new Server(server);
+const io = new Server(server, {pingInterval: 2000, pingTimeout: 5000});
 
 const port = 3000
 
@@ -27,7 +27,14 @@ io.on('connection', (socket) => {
   }
 
   io.emit('updatePlayers', players)
+  socket.on('disconnect', (reason) => {
+    console.log(reason)
+    delete players[socket.id]
+    io.emit('updatePlayers',players)
+  })
 });
+
+
 
 server.listen(port, () => {
   console.log(`Example app listening on port ${port}`)

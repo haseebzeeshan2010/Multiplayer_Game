@@ -20,6 +20,11 @@ socket.on("updatePlayers", (backendPlayers) => {
       players[id] = new Player(backendPlayer.x, backendPlayer.y, 10, 'white')
     }
   }
+  for (const id in players) {
+    if(!backendPlayers[id]){
+      delete players[id]
+    }
+  }
 })
 
 
