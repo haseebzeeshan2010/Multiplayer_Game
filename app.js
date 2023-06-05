@@ -22,8 +22,8 @@ const players = {
 io.on('connection', (socket) => {
   console.log('a user connected');
   players[socket.id] = {
-    x: 100,
-    y: 100
+    x: 500*Math.random(),
+    y: 500*Math.random()
   }
 
   io.emit('updatePlayers', players)
