@@ -15,9 +15,7 @@ app.get('/', (req, res) => {
   res.sendFile(__dirname + '/index.html')
 })
 
-const backendEndPlayers = {
-
-}
+const backendEndPlayers = {}
 
 io.on('connection', (socket) => {
   console.log('a user connected');
@@ -34,7 +32,29 @@ io.on('connection', (socket) => {
     delete backendEndPlayers[socket.id]
     io.emit('updatePlayers',backendEndPlayers)
   })
+  socket.on('keydown', (keycode) => {
+
+    switch(keycode){
+      case 'KeyW':
+        backendEndPlayers[socket.id].y -= 5
+        break
+      case 'KeyA':
+        backendEndPlayers[socket.id].x -= 5
+        break
+      case 'KeyS':
+        backendEndPlayers[socket.id].y += 5
+        break
+      case 'KeyD':
+        backendEndPlayers[socket.id].x += 5
+        break
+    }
+  })
 });
+
+setInterval(() =>{
+  io.emit('updatePlayers',backendEndPlayers)
+}, 15)
+
 
 
 
