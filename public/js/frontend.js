@@ -24,6 +24,9 @@ socket.on("updatePlayers", (backEndPlayers) => {
         radius: 10, 
         color: backEndPlayer.color
       })
+    } else {
+      frontEndPlayers[id].x = backEndPlayer.x
+      frontEndPlayers[id].y = backEndPlayer.y
     }
   }
   for (const id in frontEndPlayers) {
