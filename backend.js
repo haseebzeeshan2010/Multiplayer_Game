@@ -16,6 +16,7 @@ app.get('/', (req, res) => {
 })
 
 const backendEndPlayers = {}
+const SPEED = 1.5//original was 10
 
 io.on('connection', (socket) => {
   console.log('a user connected');
@@ -36,25 +37,25 @@ io.on('connection', (socket) => {
 
     switch(keycode){
       case 'KeyW':
-        backendEndPlayers[socket.id].y -= 5
+        backendEndPlayers[socket.id].y -= SPEED
         break
       case 'KeyA':
-        backendEndPlayers[socket.id].x -= 5
+        backendEndPlayers[socket.id].x -= SPEED
         break
       case 'KeyS':
-        backendEndPlayers[socket.id].y += 5
+        backendEndPlayers[socket.id].y += SPEED
         break
       case 'KeyD':
-        backendEndPlayers[socket.id].x += 5
+        backendEndPlayers[socket.id].x += SPEED
         break
     }
   })
 });
 
+
 setInterval(() =>{
   io.emit('updatePlayers',backendEndPlayers)
-}, 15)
-
+},1)//original was 15
 
 
 
