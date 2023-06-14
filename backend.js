@@ -16,7 +16,7 @@ app.get('/', (req, res) => {
 })
 
 const backendEndPlayers = {}
-const SPEED = 1.5//original was 10
+const SPEED = 10//original was 10
 
 io.on('connection', (socket) => {
   console.log('a user connected');
@@ -55,7 +55,7 @@ io.on('connection', (socket) => {
 
 setInterval(() =>{
   io.emit('updatePlayers',backendEndPlayers)
-},1)//original was 15
+},15)//original was 15
 
 
 
