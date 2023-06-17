@@ -92,7 +92,7 @@ const keys = {
   }
 }
 
-const SPEED = 10
+const SPEED = 3
 const playerInputs = []
 let sequenceNumber = 0
 setInterval(() => {
@@ -123,7 +123,7 @@ setInterval(() => {
     frontEndPlayers[socket.id].x += SPEED
     socket.emit('keydown', { keycode: 'KeyD', sequenceNumber })
   }
-}, 15)
+}, 3)
 
 window.addEventListener('keydown', (event) => {
   if (!frontEndPlayers[socket.id]) return

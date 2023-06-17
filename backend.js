@@ -17,7 +17,7 @@ app.get('/', (req, res) => {
 
 const backEndPlayers = {}
 
-const SPEED = 10
+const SPEED = 3
 
 io.on('connection', (socket) => {
   console.log('a user connected')
@@ -62,7 +62,7 @@ io.on('connection', (socket) => {
 
 setInterval(() => {
   io.emit('updatePlayers', backEndPlayers)
-}, 15)
+}, 3)
 
 server.listen(port, () => {
   console.log(`Example app listening on port ${port}`)
