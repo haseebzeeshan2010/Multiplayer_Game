@@ -23,7 +23,8 @@ io.on('connection', (socket) => {
   backendEndPlayers[socket.id] = {
     x: 500*Math.random(),
     y: 500*Math.random(),
-    color: `hsl(${360*Math.random()}, 100%, 50%)`
+    color: `hsl(${360*Math.random()}, 100%, 50%)`,
+    sequenceNumber:0
   }
 
   io.emit('updatePlayers', backendEndPlayers)
@@ -33,8 +34,8 @@ io.on('connection', (socket) => {
     delete backendEndPlayers[socket.id]
     io.emit('updatePlayers',backendEndPlayers)
   })
-  socket.on('keydown', (keycode) => {
-
+  socket.on('keydown', ({keycode, sequenceNumber}) => {
+    backendEndPlayers[socket.id].sequenceNumber = sequenceNumber
     switch(keycode){
       case 'KeyW':
         backendEndPlayers[socket.id].y -= SPEED
