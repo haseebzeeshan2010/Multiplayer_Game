@@ -168,4 +168,5 @@ window.addEventListener('keyup', (event) => {
       keys.d.pressed = false
       break
   }
+  console.log(frontEndProjectiles)
 })
