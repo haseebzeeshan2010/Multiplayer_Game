@@ -47,6 +47,8 @@ io.on('connection', (socket) => {
       color,
       playerId: socket.id
     }
+
+    console.log(backEndPlayers)
   })
 
   socket.on('disconnect', (reason) => {
@@ -80,7 +82,16 @@ io.on('connection', (socket) => {
 })
 
 setInterval(() => {
+
+  for (const id in backEndProjectiles) {
+    backEndProjectiles[id].x+=backEndProjectiles[id].velocity.x
+    backEndProjectiles[id].y+=backEndProjectiles[id].velocity.y
+    console.log(backEndProjectiles[id].x)
+
+  }
+  io.emit('updateProjectiles', backEndProjectiles)  
   io.emit('updatePlayers', backEndPlayers)
+
 }, 7)
 
 server.listen(port, () => {
