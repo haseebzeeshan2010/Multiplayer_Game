@@ -99,38 +99,37 @@ const keys = {
   }
 }
 
-const SPEED = 3
 const playerInputs = []
 let sequenceNumber = 0
 setInterval(() => {
   if (keys.w.pressed) {
     sequenceNumber++
-    playerInputs.push({ sequenceNumber, dx: 0, dy: -SPEED })
-    frontEndPlayers[socket.id].y -= SPEED
+    playerInputs.push({ sequenceNumber, dx: 0, dy: -0.6 })
+    frontEndPlayers[socket.id].y -= 0.6
     socket.emit('keydown', { keycode: 'KeyW', sequenceNumber })
   }
 
   if (keys.a.pressed) {
     sequenceNumber++
-    playerInputs.push({ sequenceNumber, dx: -SPEED, dy: 0 })
-    frontEndPlayers[socket.id].x -= SPEED
+    playerInputs.push({ sequenceNumber, dx: -0.6, dy: 0 })
+    frontEndPlayers[socket.id].x -= 0.6
     socket.emit('keydown', { keycode: 'KeyA', sequenceNumber })
   }
 
   if (keys.s.pressed) {
     sequenceNumber++
-    playerInputs.push({ sequenceNumber, dx: 0, dy: SPEED })
-    frontEndPlayers[socket.id].y += SPEED
+    playerInputs.push({ sequenceNumber, dx: 0, dy: 0.6 })
+    frontEndPlayers[socket.id].y += 0.6
     socket.emit('keydown', { keycode: 'KeyS', sequenceNumber })
   }
 
   if (keys.d.pressed) {
     sequenceNumber++
-    playerInputs.push({ sequenceNumber, dx: SPEED, dy: 0 })
-    frontEndPlayers[socket.id].x += SPEED
+    playerInputs.push({ sequenceNumber, dx: 0.6, dy: 0 })
+    frontEndPlayers[socket.id].x += 0.6
     socket.emit('keydown', { keycode: 'KeyD', sequenceNumber })
   }
-}, 3)
+}, 7)
 
 window.addEventListener('keydown', (event) => {
   if (!frontEndPlayers[socket.id]) return

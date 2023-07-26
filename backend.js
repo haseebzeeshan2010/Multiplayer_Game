@@ -15,9 +15,12 @@ app.get('/', (req, res) => {
   res.sendFile(__dirname + '/index.html')
 })
 
-const backEndPlayers = {}
 
-const SPEED = 3
+const backEndProjectiles = {}
+
+const backEndPlayers = {}
+let projectileId = 0
+
 
 io.on('connection', (socket) => {
   console.log('a user connected')
@@ -30,6 +33,22 @@ io.on('connection', (socket) => {
 
   io.emit('updatePlayers', backEndPlayers)
 
+  socket.on('shoot', ({x,y,color,angle})=> {
+    projectileId++;
+
+    const velocity = {
+        x: Math.cos(angle) * 8,
+        y: Math.sin(angle) * 8
+    }
+    backEndProjectiles[projectileId] = {
+      x,
+      y,
+      velocity,
+      color,
+      playerId: socket.id
+    }
+  })
+
   socket.on('disconnect', (reason) => {
     console.log(reason)
     delete backEndPlayers[socket.id]
@@ -40,19 +59,19 @@ io.on('connection', (socket) => {
     backEndPlayers[socket.id].sequenceNumber = sequenceNumber
     switch (keycode) {
       case 'KeyW':
-        backEndPlayers[socket.id].y -= SPEED
+        backEndPlayers[socket.id].y -= 0.6
         break
 
       case 'KeyA':
-        backEndPlayers[socket.id].x -= SPEED
+        backEndPlayers[socket.id].x -= 0.6
         break
 
       case 'KeyS':
-        backEndPlayers[socket.id].y += SPEED
+        backEndPlayers[socket.id].y += 0.6
         break
 
       case 'KeyD':
-        backEndPlayers[socket.id].x += SPEED
+        backEndPlayers[socket.id].x += 0.6
         break
     }
   })
@@ -62,7 +81,7 @@ io.on('connection', (socket) => {
 
 setInterval(() => {
   io.emit('updatePlayers', backEndPlayers)
-}, 3)
+}, 7)
 
 server.listen(port, () => {
   console.log(`Example app listening on port ${port}`)
