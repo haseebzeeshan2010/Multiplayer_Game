@@ -92,7 +92,7 @@ socket.on('updatePlayers', (backEndPlayers) => {
       }
     }
   }
-
+  // this is where we delete frontend players
   for (const id in frontEndPlayers) {
     if (!backEndPlayers[id]) {
       delete frontEndPlayers[id]
