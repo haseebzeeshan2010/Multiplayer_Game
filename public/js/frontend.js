@@ -60,6 +60,9 @@ socket.on('updatePlayers', (backEndPlayers) => {
         radius: 10,
         color: backEndPlayer.color
       })
+
+      document.querySelector('#playerLabels').innerHTML += `<div> ${id}: 0 </div>`
+      
     } else {
       if (id === socket.id) {
         // if a player already exists
