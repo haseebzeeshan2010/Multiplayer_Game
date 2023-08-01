@@ -122,6 +122,7 @@ setInterval(() => {
         backEndProjectiles[id].y - backEndPlayer.y
       )
 
+      // collision detection
       if (
         DISTANCE < PROJECTILE_RADIUS + backEndPlayer.radius &&
         backEndProjectiles[id].playerId !== playerId
